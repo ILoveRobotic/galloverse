@@ -1,0 +1,82 @@
+import pygame
+import random
+import time
+
+
+pygame.init()
+
+WIDTH = 640
+HEIGHT = 480
+SIZE = (WIDTH, HEIGHT)
+
+screen = pygame.display.set_mode(SIZE)
+clock = pygame.time.Clock()
+
+# ---------------------------
+# Initialize global variables for animation
+# These must have your name in there
+x = 0
+y = 0
+width = 640
+height = 480
+circle_x_tren = 200
+circle_y_tren = 200
+direction_x = 1
+# ---------------------------
+
+running = True
+
+while running:
+    # EVENT HANDLING
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            print("oof")
+
+        
+
+
+    # GAME STATE UPDATES
+    # All game math and comparisons happen here
+    if circle_x_tren >= x + 300:
+        direction_x = -10
+    elif circle_x_tren <= x + 50:
+        direction_x = 10
+    circle_x_tren += direction_x    
+
+    stick_spawn = random.randrange(0, 640)
+    horizontal_stick_spawn = random.randrange(0, 480)
+    # DRAWING
+    # Must have these coordinates
+   
+    
+
+    # Rather than screen.fill, draw a rectangle
+    pygame.draw.rect(screen, (255, 255, 255), (x, y, width, height))
+
+    # Must draw with reference to that coordinate
+    pygame.draw.circle(screen, (255, 255, 0), (x + circle_x_tren, y + circle_y_tren), 35)
+    pygame.draw.rect(screen, (0, 0, 0), (x + circle_x_tren - 22, y + circle_y_tren + 3, 27, 39))
+    pygame.draw.rect(screen, (255, 0, 80), (x + circle_x_tren - 20, y + circle_y_tren + 5, 23, 35))
+    pygame.draw.circle(screen, (0, 0, 0), (x + circle_x_tren - 20, y + circle_y_tren - 5), 5)
+    pygame.draw.circle(screen, (0, 0, 0), (x + circle_x_tren + 5, y + circle_y_tren - 5), 5)
+    pygame.draw.rect(screen, (0, 0, 0), (x + circle_x_tren - 40, y + circle_y_tren - 50, 80, 10))
+    pygame.draw.rect(screen, (0, 0, 0), (x + circle_x_tren - 40, y + circle_y_tren - 50, 80, 10))
+    pygame.draw.rect(screen, (255, 0, 0), (x + circle_x_tren - 38, y + circle_y_tren - 48, 76, 6))
+    pygame.draw.rect(screen, (165, 42, 42), (x + stick_spawn, y, 10, 100))
+    pygame.draw.rect(screen, (0, 255, 255), (x + stick_spawn, y + 100, 10, 380))
+    time.sleep(0.05)
+    pygame.draw.rect(screen, (165, 42, 42), (x, y + horizontal_stick_spawn, 100, 10))
+    pygame.draw.rect(screen, (255, 0, 0), (x + 100, y + horizontal_stick_spawn, 540, 10))
+
+    
+
+    # Must be the last two lines
+    # of the game loop
+    pygame.display.flip()
+    clock.tick(30)
+#---------------------------
+
+
+pygame.quit()
